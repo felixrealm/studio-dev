@@ -27,7 +27,7 @@ public class PlayerMotor : MonoBehaviour
       moveDirection.z = input.y;   
       controller.Move(transform.TransformDirection(moveDirection) * speed * Time.deltaTime); 
       if (isGrounded && playerVelocity.y < 0)
-            playerVelocity.y = -2f;
+        playerVelocity.y = -2f;
       playerVelocity.y += gravity * Time.deltaTime; //Applying gravity to one Y axis 
       controller.Move(playerVelocity * Time.deltaTime); //Applying the gravity on our character
       Debug.Log(playerVelocity.y);
