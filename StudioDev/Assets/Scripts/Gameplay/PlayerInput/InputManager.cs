@@ -17,6 +17,7 @@ public class InputManager : MonoBehaviour
         onFoot = playerInput.OnFoot;
         motor = GetComponent<PlayerMotor>(); 
         look = GetComponent<PlayerLook>();
+        Cursor.visible = false;
     }
 
     /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled. Good for physics since is constant.
