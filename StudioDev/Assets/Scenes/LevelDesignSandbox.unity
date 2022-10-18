@@ -458,7 +458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d41cc91e696e82144a884a66abce0552, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d41cc91e696e82144a884a66abce0552, type: 3}
@@ -571,7 +571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d41cc91e696e82144a884a66abce0552, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d41cc91e696e82144a884a66abce0552, type: 3}
@@ -876,7 +876,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d41cc91e696e82144a884a66abce0552, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d41cc91e696e82144a884a66abce0552, type: 3}
@@ -939,6 +939,10 @@ PrefabInstance:
     - target: {fileID: 3003605020277415274, guid: 5604911ec11265d43b4680fd5a49d03c, type: 3}
       propertyPath: m_Name
       value: corner_pilar (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3003605020277415274, guid: 5604911ec11265d43b4680fd5a49d03c, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5604911ec11265d43b4680fd5a49d03c, type: 3}
@@ -1024,7 +1028,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5909669745817697641, guid: 7a2b631df0d8b3b498aff82820bf9f08, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14.18
+      value: -13.97
       objectReference: {fileID: 0}
     - target: {fileID: 5909669745817697641, guid: 7a2b631df0d8b3b498aff82820bf9f08, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1060,7 +1064,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5909669746059357224, guid: 7a2b631df0d8b3b498aff82820bf9f08, type: 3}
       propertyPath: shadows.m_Bits
-      value: 72
+      value: 64
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a2b631df0d8b3b498aff82820bf9f08, type: 3}

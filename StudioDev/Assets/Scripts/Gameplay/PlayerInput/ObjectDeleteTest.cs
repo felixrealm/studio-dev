@@ -7,7 +7,6 @@ public class ObjectDeleteTest : MonoBehaviour
     private RaycastVector tester = null;
     void Start()
     {
-        tester = GameObject.FindObjectOfType<RaycastVector>();
     }
 
     // Update is called once per frame

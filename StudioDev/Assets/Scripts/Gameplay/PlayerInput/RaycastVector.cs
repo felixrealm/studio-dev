@@ -22,7 +22,7 @@ public class RaycastVector : MonoBehaviour
     // Update is called once per frame
     public void FrontProcessViewing()
     {
-        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit hitinfo, maxDistance, shadows)){
+        if(Physics.SphereCast(transform.position, transform.lossyScale.x * 2, transform.TransformDirection(Vector3.forward), out RaycastHit hitinfo, maxDistance, shadows)){
             hitinfo.collider.transform.gameObject.GetComponent<MeshRenderer>().enabled = false;
         }
         else{
@@ -32,7 +32,7 @@ public class RaycastVector : MonoBehaviour
     }
     public void BackProcessViewing()
     {
-        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out RaycastHit hitinfo, maxDistance, shadows)){
+        if(Physics.SphereCast(transform.position, transform.lossyScale.x * 2,transform.TransformDirection(Vector3.back), out RaycastHit hitinfo, maxDistance, shadows)){
             hitinfo.collider.transform.gameObject.GetComponent<MeshRenderer>().enabled = true;
         }
     }
