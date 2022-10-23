@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class RaycastVector : MonoBehaviour
 {
+    //Raycast Shyt
     public float maxDistance = 5f;
     [SerializeField] LayerMask shadows;
 
     private Collider colliderHit = null;
 
-    public float cutoff = 60f;
-
     private GameObject target = null;
-    // Start is called before the first frame update
+
+    MeshRenderer meshRender;
+    
+    [SerializeField] float DissolveAmount = 0.01f;
+    void Start()
+    {
+
+    }
     void FixedUpdate()
     {
         FrontProcessViewing();
@@ -23,7 +29,10 @@ public class RaycastVector : MonoBehaviour
     public void FrontProcessViewing()
     {
         if(Physics.SphereCast(transform.position, transform.lossyScale.x * 2, transform.TransformDirection(Vector3.forward), out RaycastHit hitinfo, maxDistance, shadows)){
-            hitinfo.collider.transform.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            meshRender =  hitinfo.collider.transform.gameObject.GetComponent<MeshRenderer>();
+            hitinfo.transform.GetComponent<BlendShadows>();
+            hitinfo.transform.GetComponent<BlendShadows>().DissolveAmount += DissolveAmount;
+            meshRender.material.SetFloat("_DissolveAmount", hitinfo.transform.GetComponent<BlendShadows>().DissolveAmount);
         }
         else{
             Debug.Log("Look at nothing");
@@ -33,7 +42,9 @@ public class RaycastVector : MonoBehaviour
     public void BackProcessViewing()
     {
         if(Physics.SphereCast(transform.position, transform.lossyScale.x * 2,transform.TransformDirection(Vector3.back), out RaycastHit hitinfo, maxDistance, shadows)){
-            hitinfo.collider.transform.gameObject.GetComponent<MeshRenderer>().enabled = true;
+            meshRender =  hitinfo.collider.transform.gameObject.GetComponent<MeshRenderer>();
+            meshRender.material.SetFloat("_DissolveAmount", -0.82f);
+            hitinfo.transform.GetComponent<BlendShadows>().reset();
         }
     }
 }
