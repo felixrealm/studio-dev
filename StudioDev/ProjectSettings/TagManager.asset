@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Shadow
   - Lantern
+  - Obsctaces
   layers:
   - Default
   - TransparentFX
@@ -14,9 +15,9 @@ TagManager:
   - Water
   - UI
   - Shadows
-  - 
-  - 
-  - 
+  - Obsctacles
+  - player
+  - LineOfSight
   - 
   - 
   - 
