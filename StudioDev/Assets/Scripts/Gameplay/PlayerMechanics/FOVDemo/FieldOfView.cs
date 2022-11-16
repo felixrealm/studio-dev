@@ -23,9 +23,8 @@ public class FieldOfView : MonoBehaviour
         FindVisibleTargets();
     }
 
-    void FindVisibleTargets(){
-        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, shadows);
-
+    public bool FindVisibleTargets(){
+        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, shadows); 
         for (int i = 0; i < targetsInViewRadius.Length; i++)
         {
             Transform target = targetsInViewRadius[i].transform;
@@ -36,22 +35,15 @@ public class FieldOfView : MonoBehaviour
 
                 if(!Physics.Raycast(transform.position, dirToTarget, maxDistance, obstacles))
                 {
-                    meshRender = targetsInViewRadius[i].gameObject.GetComponent<MeshRenderer>();
-                    targetsInViewRadius[i].transform.GetComponent<BlendShadows>();
-                    targetsInViewRadius[i].transform.GetComponent<BlendShadows>().DissolveAmount += DissolveAmount;
-                    meshRender.material.SetFloat("_DissolveAmount", targetsInViewRadius[i].transform.GetComponent<BlendShadows>().DissolveAmount);
+                    return true;
+                }
+                else
+                {
+                    return false;
+
                 }
             }
         }
-    }
-    
-
-    public Vector3 DirFromAngle(float angleCutOff, bool angleIsGlobal)
-    {
-        if(!angleIsGlobal)
-        {
-            angleCutOff += transform.eulerAngles.y;
-        }
-        return new Vector3(Mathf.Sin(angleCutOff * Mathf.Deg2Rad), 0, Mathf.Cos(angleCutOff * Mathf.Deg2Rad));
+        return false;
     }
 }

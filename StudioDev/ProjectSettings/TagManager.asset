@@ -16,8 +16,8 @@ TagManager:
   - UI
   - Shadows
   - Obsctacles
-  - 
-  - 
+  - player
+  - LineOfSight
   - 
   - 
   - 
