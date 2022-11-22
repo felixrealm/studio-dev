@@ -13,7 +13,6 @@ public class PlayerCheck : MonoBehaviour
     public LayerMask obstacles;
 
     public SphereCollider Collider;
-    public float FieldOfView = 90;
 
     public delegate void GainSightEvent(Transform Target); 
     public GainSightEvent OnGainSight;
@@ -69,7 +68,7 @@ public class PlayerCheck : MonoBehaviour
     }
     private IEnumerator CheckForLineOfSight()
     {
-        WaitForSeconds wait = new WaitForSeconds(0.5f);
+        WaitForSeconds wait = new WaitForSeconds(0.1f);
 
         while(!CheckLineOfSight())
         {

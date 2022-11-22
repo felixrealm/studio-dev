@@ -6,43 +6,36 @@ public class BlendShadows : MonoBehaviour
 {
     private FieldOfView DissolveCheck; 
 
-    public float DissolveAmount = -1.17f;
+    private float DissolveAmount = -1.17f;
+
+    private float DissolveSpeed = 0.01f/5;
+    public Vector3 scaleChange;
     public GameObject player;
     Renderer rend;
-
+    void Update()
+    {
+        if(DissolveAmount > 0.60f)
+        {
+            Destroy(gameObject);
+        }
+    }
     void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        DissolveCheck = player.GetComponentInChildren<FieldOfView>();
-        rend = GetComponent<Renderer> ();
+        rend = gameObject.GetComponent<Renderer> ();
 
-    }
-    void FixedUpdate()
-    {
-        if(DissolveCheck.FindVisibleTargets())
-        {
-            if(DissolveAmount < 0.67f)
-            {
-                DissolveAmount += 0.1f;
-            }
-            Debug.Log($"Player seeing {this.gameObject}");
-            rend.material.SetFloat("_DissolveAmount", DissolveAmount);
-        }
-        else
-        {
-            if(DissolveAmount > -1.17f)
-            {
-                if(DissolveAmount != 0.67f)
-                {
-                    DissolveAmount -= 0.1f;
-                }
-                
-            }
-            rend.material.SetFloat("_DissolveAmount", DissolveAmount);
-        }
+        scaleChange = new Vector3(0.0001f, 0.0001f, 0.0001f);
+
     }
     public void reset()
     {
-         DissolveAmount = Mathf.Lerp(-0.8f, 0.7f , Time.deltaTime); 
+        if(DissolveAmount < 0.67f)
+        {
+            DissolveAmount += DissolveSpeed;
+        }
+        rend.material.SetFloat("_DissolveAmount", DissolveAmount);
+    }
+    public void scaleIncrease()
+    {
+        gameObject.transform.localScale += scaleChange;
     }
 }

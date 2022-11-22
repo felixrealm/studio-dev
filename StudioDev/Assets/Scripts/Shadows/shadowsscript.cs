@@ -18,6 +18,9 @@ public class shadowsscript : MonoBehaviour
     [Range(-1, 1)]
     public float HideSensitivity = 0f;
 
+     [Range(0, 10)]
+    public float MinDistancePlayer = 10f;
+
     //Character Attributes
     public float speed = 3.0f;
 
@@ -60,6 +63,19 @@ public class shadowsscript : MonoBehaviour
         {
            int hits = Physics.OverlapSphereNonAlloc(Agent.transform.position, playerCheck.viewRadius, Colliders, obstacles);
 
+           int hitReduction = 0;
+           for(int i = 0; i > hits; i++)
+           {
+                if(Vector3.Distance(Colliders[i].transform.position, Target.position) < MinDistancePlayer)
+                {
+                    Colliders[i] = null;
+                    hitReduction++;
+                }
+           }
+            hits -= hitReduction;
+
+           System.Array.Sort(Colliders, ColliderArraySortCompare);
+
            for(int i  = 0; i < hits; i++)
            {
                 if(NavMesh.SamplePosition(Colliders[i].transform.position, out NavMeshHit hit, 2f, Agent.areaMask))
@@ -95,6 +111,26 @@ public class shadowsscript : MonoBehaviour
                 }   
             }
             yield return null;
+        }
+    }
+    private int ColliderArraySortCompare(Collider A, Collider B)
+    {
+        if(A == null && B != null)
+        {
+            return 1;
+
+        }
+        else if(A != null && B == null)
+        {
+            return -1;
+        }
+        else if(A == null && B == null)
+        {
+            return 0;
+        } 
+        else
+        {
+            return Vector3.Distance(Agent.transform.position, A.transform.position).CompareTo(Vector3.Distance(Agent.transform.position, B.transform.position));
         }
     }
 }

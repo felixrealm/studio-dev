@@ -33,12 +33,15 @@ public class FieldOfView : MonoBehaviour
             {
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
 
-                if(!Physics.Raycast(transform.position, dirToTarget, maxDistance, obstacles))
+                if(!Physics.Raycast(transform.position, dirToTarget, out RaycastHit  hit,maxDistance, obstacles))
                 {
+                    target.gameObject.GetComponentInParent<BlendShadows>().reset();
                     return true;
+
                 }
                 else
                 {
+                    target.gameObject.GetComponentInParent<BlendShadows>().scaleIncrease();
                     return false;
 
                 }
