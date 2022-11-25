@@ -178,6 +178,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Flashlight",
+            "id": "fa4b9c6a-e78c-4d53-abcb-ff5789e514d1",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "bde8106b-9246-4b4b-8242-05c9bb9bbc41",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OnOrOff",
+                    "type": "Button",
+                    "id": "4516ef1b-f294-4bcf-a3e4-6627af091a85",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "10b65a59-8796-402e-a36e-7fe95967a241",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cb04b234-06fa-4b4d-9287-cd2e671ff168",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OnOrOff",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

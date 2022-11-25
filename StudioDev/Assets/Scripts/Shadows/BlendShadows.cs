@@ -8,7 +8,7 @@ public class BlendShadows : MonoBehaviour
 
     private float DissolveAmount = -1.17f;
 
-    private float DissolveSpeed = 0.01f/5;
+    private float DissolveSpeed = 0.005f;
     public Vector3 scaleChange;
     public GameObject player;
     Renderer rend;

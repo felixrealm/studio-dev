@@ -19,7 +19,7 @@ public class shadowsscript : MonoBehaviour
     public float HideSensitivity = 0f;
 
      [Range(0, 10)]
-    public float MinDistancePlayer = 10f;
+    public float MinDistancePlayer = 30f;
 
     //Character Attributes
     public float speed = 3.0f;
@@ -38,9 +38,10 @@ public class shadowsscript : MonoBehaviour
         playerCheck.OnGainSight += HandleGainSight;
         playerCheck.OnLoseSight += HandleLossSight;
     }
-    // Update is called once per frame
-    void FixedUpdate()
+    void OnDestroy()
     {
+        playerCheck.OnGainSight -= HandleGainSight;
+        playerCheck.OnLoseSight -= HandleLossSight;
     }
     void HandleGainSight(Transform Target)
     {

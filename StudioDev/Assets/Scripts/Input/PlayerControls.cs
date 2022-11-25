@@ -200,6 +200,54 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Flashlight"",
+            ""id"": ""fa4b9c6a-e78c-4d53-abcb-ff5789e514d1"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""bde8106b-9246-4b4b-8242-05c9bb9bbc41"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OnOrOff"",
+                    ""type"": ""Button"",
+                    ""id"": ""4516ef1b-f294-4bcf-a3e4-6627af091a85"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Tap"",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""10b65a59-8796-402e-a36e-7fe95967a241"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cb04b234-06fa-4b4d-9287-cd2e671ff168"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OnOrOff"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -209,6 +257,10 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_OnFoot_Movement = m_OnFoot.FindAction("Movement", throwIfNotFound: true);
         m_OnFoot_Jump = m_OnFoot.FindAction("Jump", throwIfNotFound: true);
         m_OnFoot_Look = m_OnFoot.FindAction("Look", throwIfNotFound: true);
+        // Flashlight
+        m_Flashlight = asset.FindActionMap("Flashlight", throwIfNotFound: true);
+        m_Flashlight_Newaction = m_Flashlight.FindAction("New action", throwIfNotFound: true);
+        m_Flashlight_OnOrOff = m_Flashlight.FindAction("OnOrOff", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -313,10 +365,56 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         }
     }
     public OnFootActions @OnFoot => new OnFootActions(this);
+
+    // Flashlight
+    private readonly InputActionMap m_Flashlight;
+    private IFlashlightActions m_FlashlightActionsCallbackInterface;
+    private readonly InputAction m_Flashlight_Newaction;
+    private readonly InputAction m_Flashlight_OnOrOff;
+    public struct FlashlightActions
+    {
+        private @PlayerControls m_Wrapper;
+        public FlashlightActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_Flashlight_Newaction;
+        public InputAction @OnOrOff => m_Wrapper.m_Flashlight_OnOrOff;
+        public InputActionMap Get() { return m_Wrapper.m_Flashlight; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(FlashlightActions set) { return set.Get(); }
+        public void SetCallbacks(IFlashlightActions instance)
+        {
+            if (m_Wrapper.m_FlashlightActionsCallbackInterface != null)
+            {
+                @Newaction.started -= m_Wrapper.m_FlashlightActionsCallbackInterface.OnNewaction;
+                @Newaction.performed -= m_Wrapper.m_FlashlightActionsCallbackInterface.OnNewaction;
+                @Newaction.canceled -= m_Wrapper.m_FlashlightActionsCallbackInterface.OnNewaction;
+                @OnOrOff.started -= m_Wrapper.m_FlashlightActionsCallbackInterface.OnOnOrOff;
+                @OnOrOff.performed -= m_Wrapper.m_FlashlightActionsCallbackInterface.OnOnOrOff;
+                @OnOrOff.canceled -= m_Wrapper.m_FlashlightActionsCallbackInterface.OnOnOrOff;
+            }
+            m_Wrapper.m_FlashlightActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Newaction.started += instance.OnNewaction;
+                @Newaction.performed += instance.OnNewaction;
+                @Newaction.canceled += instance.OnNewaction;
+                @OnOrOff.started += instance.OnOnOrOff;
+                @OnOrOff.performed += instance.OnOnOrOff;
+                @OnOrOff.canceled += instance.OnOnOrOff;
+            }
+        }
+    }
+    public FlashlightActions @Flashlight => new FlashlightActions(this);
     public interface IOnFootActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+    }
+    public interface IFlashlightActions
+    {
+        void OnNewaction(InputAction.CallbackContext context);
+        void OnOnOrOff(InputAction.CallbackContext context);
     }
 }
