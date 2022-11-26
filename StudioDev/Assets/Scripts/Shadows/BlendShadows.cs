@@ -6,12 +6,12 @@ public class BlendShadows : MonoBehaviour
 {
     private FieldOfView DissolveCheck; 
 
-    private float DissolveAmount = -1.17f;
+    public float DissolveAmount = -1.17f;
 
-    private float DissolveSpeed = 0.005f;
+    private float DissolveSpeed = 0.01f;
     public Vector3 scaleChange;
     public GameObject player;
-    Renderer rend;
+    public Renderer rend;
     void Update()
     {
         if(DissolveAmount > 0.60f)
@@ -36,6 +36,14 @@ public class BlendShadows : MonoBehaviour
     }
     public void scaleIncrease()
     {
-        gameObject.transform.localScale += scaleChange;
+        if(DissolveAmount < -1.17f)
+        {
+            DissolveAmount -= DissolveSpeed;
+            if(DissolveAmount == -1.17f)
+            {
+                DissolveAmount = -1.17f;
+
+            }
+        }
     }
 }

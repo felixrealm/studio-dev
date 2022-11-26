@@ -22,7 +22,6 @@ public class flashlight : MonoBehaviour
     void Update()
     {
         batteryLevel -= Time.deltaTime * (drainRate);
-        Debug.Log(batteryLevel);
 
         if (batteryLevel < 0)
         {

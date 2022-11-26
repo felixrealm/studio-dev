@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
@@ -17,6 +18,8 @@ public class FieldOfView : MonoBehaviour
     public LayerMask obstacles;
 
     MeshRenderer meshRender;
+
+    public List<GameObject> targetCaught = new List<GameObject>();
 
     void Update()
     {
@@ -36,17 +39,28 @@ public class FieldOfView : MonoBehaviour
                 if(!Physics.Raycast(transform.position, dirToTarget, out RaycastHit  hit,maxDistance, obstacles))
                 {
                     target.gameObject.GetComponentInParent<BlendShadows>().reset();
+                    if(!targetCaught.Contains(target.gameObject))
+                    {
+                       targetCaught.Add(target.gameObject);
+                    }
                     return true;
 
                 }
                 else
                 {
-                    target.gameObject.GetComponentInParent<BlendShadows>().scaleIncrease();
                     return false;
 
                 }
             }
         }
+        shadowReset();
         return false;
+    }
+    public void shadowReset()
+    {
+        foreach (GameObject i in targetCaught)
+        {
+            i.GetComponentInParent<BlendShadows>().rend.material.SetFloat("_DissolveAmount", -1.17f);
+        }
     }
 }

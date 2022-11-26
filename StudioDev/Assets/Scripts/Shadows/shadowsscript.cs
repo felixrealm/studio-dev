@@ -34,14 +34,9 @@ public class shadowsscript : MonoBehaviour
     void Awake()
     {  
         Agent = GetComponent<NavMeshAgent>();
-
-        playerCheck.OnGainSight += HandleGainSight;
-        playerCheck.OnLoseSight += HandleLossSight;
     }
     void OnDestroy()
     {
-        playerCheck.OnGainSight -= HandleGainSight;
-        playerCheck.OnLoseSight -= HandleLossSight;
     }
     void HandleGainSight(Transform Target)
     {
