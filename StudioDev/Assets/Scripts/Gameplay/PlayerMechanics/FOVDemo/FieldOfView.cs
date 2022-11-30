@@ -60,7 +60,15 @@ public class FieldOfView : MonoBehaviour
     {
         foreach (GameObject i in targetCaught)
         {
-            i.GetComponentInParent<BlendShadows>().rend.material.SetFloat("_DissolveAmount", -1.17f);
+            if(i != null)
+            {
+                i.GetComponentInParent<BlendShadows>().rend.material.SetFloat("_DissolveAmount", -1.17f);
+            }
+            else
+            {
+              targetCaught.Remove(i);
+            }
+            
         }
     }
 }

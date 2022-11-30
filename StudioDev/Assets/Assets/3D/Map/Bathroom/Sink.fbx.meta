@@ -1,14 +1,24 @@
 fileFormatVersion: 2
-guid: e8b97b62abc8ae044aa0fec0860f9ac6
+guid: 0fdd17edf5c07184181c2a90b8180f2a
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
   externalObjects:
   - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface1
+    second: {fileID: 2100000, guid: a014152a6833fe14fb1fb8fde7d07006, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface2
+    second: {fileID: 2100000, guid: 0dd723e5d2a38ec4887dfc8a539c4e19, type: 2}
+  - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
-      name: wood
-    second: {fileID: 2800000, guid: adbe598c518080240806197c1ffc1f33, type: 3}
+      name: sink
+    second: {fileID: 2800000, guid: 76c2dfe67f345ed43abb712b52f72c25, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

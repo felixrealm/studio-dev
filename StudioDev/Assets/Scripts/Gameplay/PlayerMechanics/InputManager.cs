@@ -8,7 +8,7 @@ public class InputManager : MonoBehaviour
     private PlayerControls Flashlightinput;
     private PlayerControls.FlashlightActions Flashlight;
     private PlayerControls playerInput;
-    private PlayerControls.OnFootActions onFoot;
+    public PlayerControls.OnFootActions onFoot;
 
     private PlayerLook playerlook;
 
