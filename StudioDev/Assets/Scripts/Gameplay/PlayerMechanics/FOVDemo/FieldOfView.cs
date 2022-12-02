@@ -62,7 +62,7 @@ public class FieldOfView : MonoBehaviour
         {
             if(i != null)
             {
-                i.GetComponentInParent<BlendShadows>().rend.material.SetFloat("_DissolveAmount", -1.17f);
+                i.GetComponentInParent<BlendShadows>().scaleIncrease();
             }
             else
             {

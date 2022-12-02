@@ -9,6 +9,24 @@ public class PlayerMotor : MonoBehaviour
     private bool isGrounded;
     public float speed = 5f; 
     public float gravity = -9.8f;
+
+    public GameObject camHolder;
+    public Camera camera;
+
+    public Vector3 moveDirection;
+
+    [Header("HeadBob Params")]
+    [SerializeField] private bool canUseHeadBob = true;
+    [SerializeField] public float headBobSpeed = 14f;
+    [SerializeField] public float walkBobAmount = 0.10f;
+    private float defaultYPos = 0;
+    private float timer;
+    private void Awake()
+    {
+        camHolder = GameObject.FindGameObjectWithTag("MainCamera");
+        camera = camHolder.GetComponent<Camera>();
+        defaultYPos = camera.transform.localPosition.y;
+    }
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -18,11 +36,13 @@ public class PlayerMotor : MonoBehaviour
     void Update()
     {
         isGrounded = controller.isGrounded;
+
+        HandleBobbing();
     }
     // Receives the input from the InputManager.cs and apply them to our char controller
     public void ProcessMove(Vector2 input)
     {
-      Vector3 moveDirection = Vector3.zero;
+      moveDirection = Vector3.zero;
       moveDirection.x = input.x;
       moveDirection.z = input.y;   
       controller.Move(transform.TransformDirection(moveDirection) * speed * Time.deltaTime); 
@@ -30,5 +50,15 @@ public class PlayerMotor : MonoBehaviour
             playerVelocity.y = -2f;
       playerVelocity.y += gravity * Time.deltaTime; //Applying gravity to one Y axis 
       controller.Move(playerVelocity * Time.deltaTime); //Applying the gravity on our character
+    }
+    public void HandleBobbing()
+    {
+        if(Mathf.Abs(moveDirection.x) > 0.1f || Mathf.Abs(moveDirection.z) > 0.1f)
+        {
+            timer += Time.deltaTime * (headBobSpeed);
+            camera.transform.localPosition = new Vector3(camera.transform.localPosition.x, 
+            defaultYPos + Mathf.Sin(timer) * (walkBobAmount), 
+            camera.transform.localPosition.z);
+        }
     }
 }

@@ -6,6 +6,7 @@ public class BlendShadows : MonoBehaviour
 {
     private FieldOfView DissolveCheck; 
 
+    [HideInInspector]
     public float DissolveAmount = -1.17f;
 
     private float DissolveSpeed = 0.01f;
@@ -18,6 +19,7 @@ public class BlendShadows : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        rend.material.SetFloat("_DissolveAmount", DissolveAmount);
     }
     void Awake()
     {
@@ -32,11 +34,11 @@ public class BlendShadows : MonoBehaviour
         {
             DissolveAmount += DissolveSpeed;
         }
-        rend.material.SetFloat("_DissolveAmount", DissolveAmount);
+        
     }
     public void scaleIncrease()
     {
-        if(DissolveAmount < -1.17f)
+        if(DissolveAmount > -1.17f)
         {
             DissolveAmount -= DissolveSpeed;
             if(DissolveAmount == -1.17f)

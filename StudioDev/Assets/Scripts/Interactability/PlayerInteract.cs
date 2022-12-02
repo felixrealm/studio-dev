@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
+    public GameObject camHolder;
     public Camera cam;
 
     public float distance = 3f;
@@ -14,7 +15,8 @@ public class PlayerInteract : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        cam = GetComponent<PlayerLook>().camera;
+        camHolder = GameObject.FindGameObjectWithTag("MainCamera");
+        cam = camHolder.GetComponent<Camera>();
         inputManager = GetComponent<InputManager>();
     }
 
