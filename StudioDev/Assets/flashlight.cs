@@ -12,6 +12,8 @@ public class flashlight : MonoBehaviour
     Light light;
 
     FieldOfView fieldOfView;
+
+    public AudioSource click;
     // Start is called before the first frame update
     void Awake()
     {
@@ -38,6 +40,7 @@ public class flashlight : MonoBehaviour
     {
         if(onoroff)
         {
+            click.Play();
             onoroff = false;
             rend.material.SetFloat("_Opacity", 0);
             light.enabled = false;
@@ -47,11 +50,13 @@ public class flashlight : MonoBehaviour
         }
         else if(!onoroff && batteryLevel > 0)
         {
+            click.Play();
             onoroff = true;
             rend.material.SetFloat("_Opacity", 0.58f);
             light.enabled = true;
             fieldOfView.viewAngle = 25;
             drainRate = 10;
+
 
 
         }

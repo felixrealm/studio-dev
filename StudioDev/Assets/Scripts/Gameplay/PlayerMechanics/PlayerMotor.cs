@@ -16,13 +16,15 @@ public class PlayerMotor : MonoBehaviour
     public Vector3 moveDirection;
 
     [Header("HeadBob Params")]
-    [SerializeField] private bool canUseHeadBob = true;
     [SerializeField] public float headBobSpeed = 14f;
     [SerializeField] public float walkBobAmount = 0.10f;
     private float defaultYPos = 0;
     private float timer;
+
+    public AudioSource footsteps;
     private void Awake()
     {
+        footsteps = GetComponent<AudioSource>();
         camHolder = GameObject.FindGameObjectWithTag("MainCamera");
         camera = camHolder.GetComponent<Camera>();
         defaultYPos = camera.transform.localPosition.y;
@@ -42,14 +44,23 @@ public class PlayerMotor : MonoBehaviour
     // Receives the input from the InputManager.cs and apply them to our char controller
     public void ProcessMove(Vector2 input)
     {
-      moveDirection = Vector3.zero;
-      moveDirection.x = input.x;
-      moveDirection.z = input.y;   
-      controller.Move(transform.TransformDirection(moveDirection) * speed * Time.deltaTime); 
-      if (isGrounded && playerVelocity.y < 0)
-            playerVelocity.y = -2f;
-      playerVelocity.y += gravity * Time.deltaTime; //Applying gravity to one Y axis 
-      controller.Move(playerVelocity * Time.deltaTime); //Applying the gravity on our character
+        moveDirection = Vector3.zero;
+        moveDirection.x = input.x;
+        moveDirection.z = input.y;   
+        controller.Move(transform.TransformDirection(moveDirection) * speed * Time.deltaTime); 
+        if (isGrounded && playerVelocity.y < 0)
+                playerVelocity.y = -2f;
+        playerVelocity.y += gravity * Time.deltaTime; //Applying gravity to one Y axis 
+        controller.Move(playerVelocity * Time.deltaTime); //Applying the gravity on our character
+
+        if(moveDirection.x == 0 && moveDirection.z == 0)
+        {
+            footsteps.enabled = false;
+        }
+        else
+        {
+            footsteps.enabled = true;
+        }
     }
     public void HandleBobbing()
     {

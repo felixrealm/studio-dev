@@ -12,8 +12,6 @@ public class FieldOfView : MonoBehaviour
 
     public float maxDistance = 5f;
 
-    float DissolveAmount = 0.01f;
-
     public LayerMask shadows;
     public LayerMask obstacles;
 
@@ -38,7 +36,12 @@ public class FieldOfView : MonoBehaviour
 
                 if(!Physics.Raycast(transform.position, dirToTarget, out RaycastHit  hit,maxDistance, obstacles))
                 {
-                    target.gameObject.GetComponentInParent<BlendShadows>().reset();
+                    UnityEngine.Debug.Log(target.gameObject);
+                    target.gameObject.GetComponent<BlendShadows>().reset();
+                    if (target.gameObject.GetComponent<BlendShadows>().DissolveAmount >= 100)
+                    {
+                        target.gameObject.GetComponent<BlendShadows>().anim.SetBool("IsDead", true);
+                    }
                     if(!targetCaught.Contains(target.gameObject))
                     {
                        targetCaught.Add(target.gameObject);

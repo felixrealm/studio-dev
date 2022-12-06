@@ -35,6 +35,7 @@ public class PlayerCheck : MonoBehaviour
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacles))
                 {
                     return true;
+                    
 
                 }
             }

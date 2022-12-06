@@ -1,24 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BlendShadows : MonoBehaviour
 {
     private FieldOfView DissolveCheck; 
 
     [HideInInspector]
-    public float DissolveAmount = -1.17f;
+    public float DissolveAmount = 0;
 
-    private float DissolveSpeed = 0.01f;
+    private float DissolveSpeed = 0.5f;
     public Vector3 scaleChange;
-    public GameObject player;
+
+    [HideInInspector]
     public Renderer rend;
+
+    public Animator anim;
+
+    [SerializeField] public Destroy parentDestroy;
+
+    [SerializeField] public Image healthBar;
+
+    public AudioSource ghostDeath;
+
+    void Start()
+    {
+        
+        DissolveAmount = 0;
+        anim = GetComponent<Animator>();
+
+
+    }
     void Update()
     {
-        if(DissolveAmount > 0.60f)
-        {
-            Destroy(gameObject);
-        }
+        UpdateHealthBar();
         rend.material.SetFloat("_DissolveAmount", DissolveAmount);
     }
     void Awake()
@@ -30,7 +46,7 @@ public class BlendShadows : MonoBehaviour
     }
     public void reset()
     {
-        if(DissolveAmount < 0.67f)
+        if(DissolveAmount < 100)
         {
             DissolveAmount += DissolveSpeed;
         }
@@ -38,14 +54,27 @@ public class BlendShadows : MonoBehaviour
     }
     public void scaleIncrease()
     {
-        if(DissolveAmount > -1.17f)
+        if(DissolveAmount > 0)
         {
             DissolveAmount -= DissolveSpeed;
-            if(DissolveAmount == -1.17f)
+            if(DissolveAmount == 0)
             {
-                DissolveAmount = -1.17f;
+                DissolveAmount = 0;
 
             }
         }
+    }
+
+    public void DestroyGhost()
+    {
+        parentDestroy.DestroyParent();
+    }
+    public void UpdateHealthBar()
+    {
+        healthBar.fillAmount = DissolveAmount / 100;
+    }
+    public void PlayDeathSound()
+    {
+        ghostDeath.Play();
     }
 }

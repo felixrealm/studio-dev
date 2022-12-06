@@ -14,19 +14,33 @@ public class TargetScript : MonoBehaviour
     public NavMeshAgent ShadowMesh;
     public NavMeshAgent TargetMesh;
     public PlayerCheck playerCheck;
+
+    public AudioSource ghostLaugh;
+
+    public float currentTime = 0f;
+
+    public float StartingTime = 10f;
     // Start is called before the first frame update
     void Awake()
     {
+        currentTime = StartingTime;
         playerCheck = GameObject.FindWithTag("PlayerCheck").GetComponent<PlayerCheck>();
         TargetMesh = GetComponent<NavMeshAgent>();
-        newDestination = new Vector3(UnityEngine.Random.Range(-2, 34), 0, UnityEngine.Random.Range(-3, -47));
+        newDestination = new Vector3(UnityEngine.Random.Range(-2, 34), 0.83f, UnityEngine.Random.Range(-3, -47));
     }
 
     // Update is called once per frame
     void Update()
     {
+        StartingTime -= 1 * Time.deltaTime;
         dist = Vector3.Distance(ShadowMesh.transform.position, gameObject.transform.position);
         RandomPosition();
+        if (StartingTime <= 0)
+        {
+            ghostLaugh.Play();
+            StartingTime = 10f;
+        }
+        
     }
 
     void RandomPosition()
@@ -36,10 +50,10 @@ public class TargetScript : MonoBehaviour
 
         if(playerCheck.CheckLineOfSight())
         {
-            newDestination = new Vector3(UnityEngine.Random.Range(-2, 34), 0, UnityEngine.Random.Range(-3, -47));
+            newDestination = new Vector3(UnityEngine.Random.Range(-2, 34), 0.83f, UnityEngine.Random.Range(-3, -47));
             if (dist < 5)
             {
-                gameObject.transform.position = new Vector3(UnityEngine.Random.Range(-2, 34), 0, UnityEngine.Random.Range(-3, -47));
+                gameObject.transform.position = new Vector3(UnityEngine.Random.Range(-2, 34), 0.83f, UnityEngine.Random.Range(-3, -47));
             }
             
         }
