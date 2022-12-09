@@ -36,7 +36,6 @@ public class FieldOfView : MonoBehaviour
 
                 if(!Physics.Raycast(transform.position, dirToTarget, out RaycastHit  hit,maxDistance, obstacles))
                 {
-                    UnityEngine.Debug.Log(target.gameObject);
                     target.gameObject.GetComponent<BlendShadows>().reset();
                     if (target.gameObject.GetComponent<BlendShadows>().DissolveAmount >= 100)
                     {

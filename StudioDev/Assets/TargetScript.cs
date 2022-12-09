@@ -26,7 +26,7 @@ public class TargetScript : MonoBehaviour
         currentTime = StartingTime;
         playerCheck = GameObject.FindWithTag("PlayerCheck").GetComponent<PlayerCheck>();
         TargetMesh = GetComponent<NavMeshAgent>();
-        newDestination = new Vector3(UnityEngine.Random.Range(-2, 34), 0.83f, UnityEngine.Random.Range(-3, -47));
+        newDestination = new Vector3(UnityEngine.Random.Range(-2, 34), 0.83f, UnityEngine.Random.Range(-3, -40));
     }
 
     // Update is called once per frame
@@ -50,10 +50,10 @@ public class TargetScript : MonoBehaviour
 
         if(playerCheck.CheckLineOfSight())
         {
-            newDestination = new Vector3(UnityEngine.Random.Range(-2, 34), 0.83f, UnityEngine.Random.Range(-3, -47));
+            newDestination = new Vector3(UnityEngine.Random.Range(-2, 30), 0.83f, UnityEngine.Random.Range(-3, -40));
             if (dist < 5)
             {
-                gameObject.transform.position = new Vector3(UnityEngine.Random.Range(-2, 34), 0.83f, UnityEngine.Random.Range(-3, -47));
+                gameObject.transform.position = new Vector3(UnityEngine.Random.Range(-2, 34), 0.83f, UnityEngine.Random.Range(-3, -40));
             }
             
         }

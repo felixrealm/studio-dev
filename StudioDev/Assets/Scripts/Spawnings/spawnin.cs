@@ -4,21 +4,59 @@ using UnityEngine;
 
 public class spawnin : MonoBehaviour
 {
+    public Wave[] waves;
     public GameObject ghost;
 
+    Wave currentWave;
+
+    int currentWaveNumber;
+
+    int enemiesRemainingToSpawn;
+    float nextSpawnTime;
+
     [SerializeField] private Transform[] spawnpoints;
-    // Start is called before the first frame update
+
+    private Transform selectedSpawnPoint;
+
+    private GameObject ghostParent;
+
     void Start()
     {
-        Transform randomSelectedSpawn = spawnpoints[Random.Range(0, spawnpoints.Length)];
-        GameObject ghostClone = Instantiate(ghost, randomSelectedSpawn.transform.position, randomSelectedSpawn.rotation);
-        ghostClone.transform.parent = GameObject.Find("Shadows").transform;
 
+        nextWave();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if(enemiesRemainingToSpawn > 0 && Time.time > nextSpawnTime)
+        {
+           enemiesRemainingToSpawn--;
+           nextSpawnTime = Time.time + currentWave.timeBetweenSpawns; 
+
+           GameObject ghostClone = Instantiate(ghost, selectedSpawnPoint.transform.position, Quaternion.identity);
+           ghostClone.transform.parent = GameObject.Find("Shadows").transform;
+        }
+
+    }
+    void nextWave()
+    {
+        SpawnGenerator();
+
+        currentWaveNumber ++;
+
+        currentWave = waves[currentWaveNumber - 1];
+
+        enemiesRemainingToSpawn = currentWave.enemyCount;
+    }
+    [System.Serializable]
+    public class Wave
+    {
+        public int enemyCount;
+        public float timeBetweenSpawns;
+    }
+
+    void SpawnGenerator()
+    {
+        selectedSpawnPoint = spawnpoints[UnityEngine.Random.Range(0, spawnpoints.Length)];
     }
 }

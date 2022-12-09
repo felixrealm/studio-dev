@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerCheck : MonoBehaviour
 {
@@ -14,9 +15,12 @@ public class PlayerCheck : MonoBehaviour
     public LayerMask player;
     public LayerMask obstacles;
 
+    public NavMeshAgent agent;
+
 
     void Awake()
     {
+        agent = GetComponentInParent<NavMeshAgent>();
     } 
     void Update()
     {
@@ -34,6 +38,7 @@ public class PlayerCheck : MonoBehaviour
 
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacles))
                 {
+                    agent.speed = 8f;
                     return true;
                     
 
@@ -41,9 +46,11 @@ public class PlayerCheck : MonoBehaviour
             }
             else
             {
+                agent.speed = 5f;
                 return false;
             }
         }
+        agent.speed = 5f;
         return false;
     }
 

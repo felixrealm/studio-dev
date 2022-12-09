@@ -24,9 +24,17 @@ public class BlendShadows : MonoBehaviour
 
     public AudioSource ghostDeath;
 
+    public flashlight flashlight;
+
+    public float batteryLevel;
+
+    private GameManager gameManager;
+
     void Start()
     {
-        
+        gameManager = GameManager.Instance;
+        flashlight = GameObject.FindGameObjectWithTag("Lantern").GetComponent<flashlight>();
+        batteryLevel = flashlight.batteryLevel;
         DissolveAmount = 0;
         anim = GetComponent<Animator>();
 
@@ -34,6 +42,7 @@ public class BlendShadows : MonoBehaviour
     }
     void Update()
     {
+        Debug.Log(gameManager.GhostsCaptured);
         UpdateHealthBar();
         rend.material.SetFloat("_DissolveAmount", DissolveAmount);
     }
@@ -67,6 +76,8 @@ public class BlendShadows : MonoBehaviour
 
     public void DestroyGhost()
     {
+        
+        flashlight.batteryLevel = 100;
         parentDestroy.DestroyParent();
     }
     public void UpdateHealthBar()
@@ -77,4 +88,9 @@ public class BlendShadows : MonoBehaviour
     {
         ghostDeath.Play();
     }
+    public void UpdateScore()
+    {
+        gameManager.GhostsCaptured += 1;
+    }
+
 }
